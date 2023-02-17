@@ -1,0 +1,146 @@
+openapi: "3.0.2"
+info:
+  title: Subnet API
+  version: "1.0"
+  description: API for IP segmentation with FLSM and VLSM techniques. Find the first version of this project with the algorithm theory at [https://github.com/ElPitagoras14/subnetting](Github).
+  contact:
+    email: jonfrgar@espol.edu.ec
+servers:
+  - url: https://subnetapi.onrender.com/v1
+  
+
+
+
+paths:
+  /flsm/network:
+    post:
+      summary: Do FLSM subnetting by minimun networks.
+      description: Do Fixed Length Subnet Mask according to the number of minimun networks required.
+      parameters:
+        - in: header
+          name: Access-Control-Allow-Origin
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/requestData'
+      responses:
+        "200":
+          $ref: '#/components/responses/OK-FSLM'
+        "500":
+          $ref: '#/components/responses/Error-FLSM'
+  /test:
+    get:
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: OK
+
+
+components:
+  schemas:
+    requestData:
+      type: object
+      properties:
+        ip:
+          type: string
+          default: 192.19.19.0
+        mask:
+          type: integer
+          default: 26
+        min:
+          type: integer
+          default: 2
+    network:
+      type: object
+      properties:
+        name:
+          type: string
+          default: Net 1
+        subnet:
+          type: string
+          default: 192.19.19.0
+        mask:
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 27
+        firstIp:
+          type: string
+          default: 192.19.19.1
+        lastIp:
+          type: string
+          default: 192.19.19.30
+        broadcast: 
+          type: string
+          default: 192.19.19.31
+    subnettingInfoFLSM:
+      type: object
+      properties:
+        initialIp:
+          type: string
+          default: 192.19.19.0
+        initialMask:
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 26
+        n:
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 1
+        m:
+          type: integer
+          minimum: 1
+          maximum: 32
+          default: 5
+        numOfNetworks:
+          type: integer
+          minimum: 2
+        hostPerNetwork:
+          type: integer
+          minimum: 4
+    
+  responses:
+    OK-FSLM:
+      description: Ok
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                default: 200
+              message:
+                type: string
+                default: OK
+              payload:
+                type: object
+                properties:
+                  subnettingInfo:
+                    $ref: '#/components/schemas/subnettingInfoFLSM'
+                  networks:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/network'
+    Error-FLSM:
+      description: Unknow error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                default: 500
+              message:
+                type: string
+                default: Internal Server Error
+    
+    
+                
