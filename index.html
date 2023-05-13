@@ -2,17 +2,213 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SwaggerUI" />
-  <title>API Docs Hub</title>
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
-  <link rel="stylesheet" href="./css/theme-flattop.css">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Documentation Hub</title>
+  <meta name="description" content="Personal portfolio of Jonathan García" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="./assets/icons/page-icon.png" type="image/icon type">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
+    rel="stylesheet" />
 </head>
 
-<body>
-  <div id="swagger-ui"></div>
-  <script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script>
+<body class="body-scroll">
+  <header class="header">
+    <div class="header__content">
+      <div class="header__logo-container">
+        <div class="header__logo-img-cont">
+          <img src="./assets/png/perfil.png" alt="Ram Maheshwari Logo Image" class="header__logo-img" />
+        </div>
+        <span class="header__logo-sub">Jonathan García</span>
+      </div>
+      <div class="header__main">
+        <ul class="header__links">
+          <li class="header__link-wrapper">
+            <a href="./index.html" class="header__link"> API-Docs </a>
+          </li>
+          <li class="header__link-wrapper">
+            <label class="theme-switch" for="checkbox">
+              <input type="checkbox" id="checkbox" />
+              <div class="slider round"></div>
+            </label>
+          </li>
+        </ul>
+        <div class="header__main-ham-menu-cont">
+          <img src="./assets/svg/ham-menu.svg" alt="hamburger menu" class="header__main-ham-menu" />
+          <img src="./assets/svg/ham-menu-close.svg" alt="hamburger menu close"
+            class="header__main-ham-menu-close d-none" />
+        </div>
+      </div>
+    </div>
+    <div class="header__sm-menu">
+      <div class="header__sm-menu-content">
+        <ul class="header__sm-menu-links">
+          <li class="header__sm-menu-link">
+            <a href="./index.html"> API-Docs </a>
+          </li>
+
+          <li class="">
+            <div class="header__sm-menu-toggle">
+              <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <section class="home-hero">
+
+    <div class="home-hero__content">
+      <h1 class="heading-primary">Documentation Hub</h1>
+      <div class="home-hero__info">
+        <p class="text-primary">
+          Here you can find the developer documentation of projects I made before.
+        </p>
+      </div>
+    </div>
+    <div class="home-hero__socials">
+      <div class="home-hero__social">
+        <a href="https://www.linkedin.com/in/jonathan-garcia-elpi/" target="_blank" class="home-hero__social-icon-link">
+          <img src="./assets/png/linkedin-ico.png" alt="icon" class="home-hero__social-icon" />
+        </a>
+      </div>
+      <div class="home-hero__social">
+        <a href="https://github.com/ElPitagoras14" target="_blank" class="home-hero__social-icon-link">
+          <img src="./assets/png/github-ico.png" alt="icon" class="home-hero__social-icon" />
+        </a>
+      </div>
+      <div class="home-hero__social">
+        <a href="https://twitter.com/ElPitagoras14" target="_blank" class="home-hero__social-icon-link">
+          <img src="./assets/png/twitter-ico.png" alt="icon" class="home-hero__social-icon" />
+        </a>
+      </div>
+      <div class="home-hero__social">
+        <a href="https://leetcode.com/ElPitagoras14/" target="_blank" class="home-hero__social-icon-link">
+          <img src="./assets/png/leetcode-ico.png" alt="icon" class="home-hero__social-icon" />
+        </a>
+      </div>
+      <div class="home-hero__social">
+        <a href="https://www.instagram.com/_afjhony/" target="_blank"
+          class="home-hero__social-icon-link home-hero__social-icon-link--bd-none">
+          <img src="./assets/png/insta-ico.png" alt="icon" class="home-hero__social-icon" />
+        </a>
+      </div>
+    </div>
+    <div class="home-hero__mouse-scroll-cont">
+      <div class="mouse"></div>
+    </div>
+  </section>
+  <section id="projects" class="projects sec-pad">
+    <div class="main-container">
+      <h2 class="heading heading-sec heading-sec__mb-bg">
+        <span class="heading-sec__main">Projects</span>
+        <span class="heading-sec__sub">
+          See the documentation of projects I've worked on.
+        </span>
+      </h2>
+
+      <div class="projects__row">
+          <div class="projects__row-img-cont">
+            <img src="./assets/projects-imgs/subnet-diagram.svg" alt="Software Screenshot" class="projects__row-img"
+              loading="lazy" />
+          </div>
+          <div class="projects__row-content">
+            <h3 class="projects__row-content-title">Subnetting Algorithm</h3>
+            <p class="projects__row-content-desc">
+              Code written in python where the algorithm for IP 
+              segmentation with FLSM and VLSM techniques is used.
+            </p>
+            <a href="./views/subnetAPI.html" target="_blank" class="btn btn--med btn--theme dynamicBgClr">Documentation</a>
+          </div>
+        </div>
+
+      <!-- <div class="projects__content">
+        <div class="projects__row">
+          <div class="projects__row-img-cont">
+            <img src="./assets/projects-imgs/urbapass-back.png" alt="Software Screenshot" class="projects__row-img"
+              loading="lazy" />
+          </div>
+          <div class="projects__row-content">
+            <h3 class="projects__row-content-title">Urbapass Backend</h3>
+            <p class="projects__row-content-desc">
+              UrbaPass Backend is a REST API that will allow communication 
+              between the company client and server, facilitating interaction 
+              and obtaining data through requests with the HTTP protocol.
+            </p>
+            <a href="./projects/urbapass-backend.html" class="btn btn--med btn--theme dynamicBgClr">Documentation</a>
+          </div>
+        </div>
+        
+        <div class="projects__row">
+          <div class="projects__row-img-cont">
+            <img src="./assets/projects-imgs/unity.jpg" alt="Software Screenshot" class="projects__row-img"
+              loading="lazy" />
+          </div>
+          <div class="projects__row-content">
+            <h3 class="projects__row-content-title">PPL Adventure</h3>
+            <p class="projects__row-content-desc">
+              PPL Adventure is a game made with Unity set in the ESPOL campus 
+              as part of the Taws club's new member admission project. In this 
+              project I acted as a mentor of the team where I guided the approach of the project.
+            </p>
+            <a href="./projects/ppl-adventure.html" class="btn btn--med btn--theme dynamicBgClr">Documentation</a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+  <footer class="main-footer">
+    <div class="main-container">
+      <div class="main-footer__upper">
+        <div class="main-footer__row main-footer__row-1">
+          <h2 class="heading heading-sm main-footer__heading-sm">
+            <span>Social</span>
+          </h2>
+          <div class="main-footer__social-cont">
+            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/jonathan-garcia-elpi/">
+              <img class="main-footer__icon" src="./assets/png/linkedin-ico.png" alt="icon" />
+            </a>
+            <a target="_blank" rel="noreferrer" href="https://github.com/ElPitagoras14">
+              <img class="main-footer__icon" src="./assets/png/github-ico.png" alt="icon" />
+            </a>
+            <a target="_blank" rel="noreferrer" href="https://twitter.com/ElPitagoras14">
+              <img class="main-footer__icon" src="./assets/png/twitter-ico.png" alt="icon" />
+            </a>
+            <a target="_blank" rel="noreferrer" href="https://leetcode.com/ElPitagoras14/">
+              <img class="main-footer__icon" src="./assets/png/leetcode-ico.png" alt="icon" />
+            </a>
+            <a target="_blank" rel="noreferrer" href="https://www.instagram.com/_afjhony/">
+              <img class="main-footer__icon main-footer__icon--mr-none" src="./assets/png/insta-ico.png" alt="icon" />
+            </a>
+          </div>
+        </div>
+        <div class="main-footer__row main-footer__row-2">
+          <h4 class="heading heading-sm text-lt">Jonathan García</h4>
+          <p class="main-footer__short-desc">
+            Computer Science Student | Backend web developer | Algorithm design enjoyer | Videogames enjoyer
+          </p>
+        </div>
+      </div>
+
+      <!-- If you give me some credit or shoutout here by linking to my website, then it will be a big thing for me and will help me a lot :) -->
+      <div class="main-footer__lower">
+        &copy; Copyright 2021. Made by
+        <a rel="noreferrer" target="_blank" href="https://rammaheshwari.com">Ram Maheshwari</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/index.js"></script>
+  <script src="./js/form.js"></script>
 </body>
 
 </html>
