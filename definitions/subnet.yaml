@@ -1,0 +1,404 @@
+openapi: "3.0.2"
+info:
+  title: Subnet API
+  version: "1.0"
+  description: API for IP segmentation with FLSM and VLSM techniques. Find the first version of this project with the algorithm theory at [https://github.com/ElPitagoras14/subnetting](Github).
+  contact:
+    email: jonfrgar@espol.edu.ec
+servers:
+  - url: https://subnetapi.onrender.com/v1
+
+tags:
+  - name: FLSM
+  - name: VLSM
+  - name: Tree
+  - name: Other
+
+paths:
+  /flsm/network:
+    post:
+      summary: Do FLSM subnetting by minimun networks.
+      description: It performs subnetting with the FLSM technique passing as argument the number of minimum networks it needs.
+      tags:
+        - FLSM
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/requestDataFLSM"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-FSLM"
+        "500":
+          $ref: "#/components/responses/Error-FLSM"
+
+  /flsm/host:
+    post:
+      summary: Do FLSM subnetting by minimun hosts.
+      description:
+        It performs subnetting with the FLSM technique passing as arguments the initial
+        ip, the network mask and the number of minimum hosts it needs.
+      tags:
+        - FLSM
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/requestDataFLSM"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-FSLM"
+
+  /vlsm/sorted:
+    post:
+      summary: Do VLSM subnetting with sorted hosts list.
+      description:
+        It performs subnetting with the VLSM technique passing as arguments the initial
+        ip, the network mask and a list of the number of hosts per network needed.
+        Additionally, this function sorts the list before subnetting.
+      tags:
+        - VLSM
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestDataVLSMSorted"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-VLSM"
+
+  /vlsm/unsorted:
+    post:
+      summary: Do VLSM subnetting with unsorted hosts list.
+      description:
+        It performs subnetting with the VLSM technique passing as arguments the initial
+        ip, the network mask and a list of the number of hosts per network needed.
+      tags:
+        - VLSM
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestDataVLSMUnsorted"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-VLSM"
+
+  /tree/create:
+    post:
+      summary: Create a tree text view.
+      description:
+        Create a tree text view from initial ip, initial mask and networks list given.
+        This list is obtained with VLSM or FLSM subnet endpoint.
+      tags:
+        - Tree
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestDataTree"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-TreeCreate"
+
+  /tree/save:
+    post:
+      summary: Saves a tree text view to a .txt file and download it.
+      description:
+        Saves a tree text view to a .txt file according to an initial ip, initial mask
+        and networks list given. This list is obtained with VLSM or FLSM subnet endpoint.
+        The .txt file is downloaded automatically.
+      tags:
+        - Tree
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestDataTree"
+      responses:
+        "200":
+          $ref: "#/components/responses/OK-TreeSave"
+
+  /*:
+    get:
+      summary: Redirect from inexistent endpoints.
+      description: This endpoints appears when a request to an inexistent endpoints is made.
+      tags:
+        - Other
+      responses:
+        "200":
+          $ref: "#/components/responses/Other"
+
+components:
+  schemas:
+    health:
+      type: object
+      properties:
+        message:
+          type: string
+          default: It's working
+
+    response200:
+      type: object
+      properties:
+        code:
+          type: integer
+          default: 200
+        message:
+          type: string
+          default: OK
+
+    response500:
+      type: object
+      properties:
+        code:
+          type: integer
+          default: 500
+        message:
+          type: string
+          default: Internal Server Error
+
+    requestDataFLSM:
+      type: object
+      properties:
+        ip:
+          type: string
+          example: 192.19.19.0
+        mask:
+          type: integer
+          minimum: 1
+          example: 26
+        min:
+          type: integer
+          minimum: 2
+          example: 2
+
+    network:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Net 1
+        subnet:
+          type: string
+          example: 192.19.19.0
+        mask:
+          type: integer
+          minimum: 1
+          maximum: 32
+          example: 27
+        firstIp:
+          type: string
+          example: 192.19.19.1
+        lastIp:
+          type: string
+          example: 192.19.19.30
+        broadcast:
+          type: string
+          example: 192.19.19.31
+
+    subnettingInfoFLSM:
+      type: object
+      properties:
+        initialIp:
+          type: string
+          example: 192.19.19.0
+        initialMask:
+          type: integer
+          minimum: 1
+          maximum: 32
+          example: 26
+        n:
+          type: integer
+          minimum: 1
+          maximum: 32
+          example: 1
+        m:
+          type: integer
+          minimum: 1
+          maximum: 32
+          example: 5
+        numOfNetworks:
+          type: integer
+          minimum: 2
+          example: 2
+        hostPerNetwork:
+          type: integer
+          minimum: 4
+          example: 30
+
+    subnettingInfoVLSM:
+      type: object
+      properties:
+        initialIp:
+          type: string
+          example: 192.19.19.0
+        initialMask:
+          type: integer
+          minimum: 1
+          maximum: 32
+          example: 26
+        initialHostPerNetwork:
+          type: array
+          minItems: 2
+          example: [100, 50, 25, 25]
+          items:
+            type: integer
+        hostPerNetwork:
+          type: array
+          minItems: 2
+          example: [128, 64, 32, 32]
+          items:
+            type: integer
+
+    requestDataVLSMSorted:
+      type: object
+      properties:
+        ip:
+          type: string
+          example: 200.10.100.0
+        mask:
+          type: integer
+          minimum: 1
+          example: 24
+        hostList:
+          type: array
+          minItems: 2
+          example: [100, 50, 25, 25]
+          items:
+            type: integer
+            minimum: 2
+
+    requestDataVLSMUnsorted:
+      type: object
+      properties:
+        ip:
+          type: string
+          example: 200.10.100.0
+        mask:
+          type: integer
+          minimum: 1
+          example: 24
+        hostList:
+          type: array
+          minItems: 2
+          example: [50, 25, 25, 100]
+          items:
+            type: integer
+            minimum: 2
+
+    requestDataTree:
+      type: object
+      properties:
+        subnettingInfo:
+          type: object
+          properties:
+            initialIp:
+              type: string
+              example: 192.19.19.0
+            initialMask:
+              type: integer
+              minimum: 1
+              maximum: 32
+              example: 26
+        networks:
+          type: array
+          minItems: 2
+          example:
+            [
+              {
+                name: Net 1,
+                subnet: 192.19.19.0,
+                mask: 27,
+                firstIp: 192.19.19.1,
+                lastIp: 192.19.19.30,
+                broadcast: 192.19.19.31,
+              },
+              {
+                name: Net 2,
+                subnet: 192.19.19.32,
+                mask: 27,
+                firstIp: 192.19.19.33,
+                lastIp: 192.19.19.62,
+                broadcast: 192.19.19.63,
+              },
+            ]
+          items:
+            $ref: "#/components/schemas/network"
+
+  responses:
+    OK-FSLM:
+      description: FLSM subnetting was sucessfully.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/response200"
+              - type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      subnettingInfoFLSM:
+                        $ref: "#/components/schemas/subnettingInfoFLSM"
+                      networks:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/network"
+
+    Error-FLSM:
+      description: Unknown error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/response500"
+
+    OK-VLSM:
+      description: VLSM subnetting was sucessfully.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/response200"
+              - type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      subnettingInfoVLSM:
+                        $ref: "#/components/schemas/subnettingInfoVLSM"
+                      networks:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/network"
+
+    OK-TreeCreate:
+      description: Tree creation was sucessfully.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/response200"
+              - type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      stringTree:
+                        type: string
+                        example: "    .——— 27-Net 2\n——— 26\n    `——— 27-Net 1\n"
+                        
+    OK-TreeSave:
+      description: Tree saving was sucessfully.
+      content:
+        text/plain:
+          schema:
+            type: string
+            format: binary
+
+    Other:
+      description: Non existent endpoints
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/health"
